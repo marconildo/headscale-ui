@@ -7,9 +7,11 @@ import {
   createStyles,
   Container
 } from "@mantine/core";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import Logo from "../assets/images/headscale_dots.png";
-import DarkModeToggle from "../components/DarkModeToggle";
+import DarkModeToggle from "../components/common/DarkModeToggle";
+import Login from "../components/login/Login";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -63,9 +65,9 @@ const useStyles = createStyles((theme) => ({
   footer: {
     marginTop: 120,
     borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
-  },
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+    }`
+  }
 }));
 
 const MainPage = () => {
@@ -101,16 +103,32 @@ const MainPage = () => {
               }}
             >
               <Tabs.List>
-                <Tabs.Tab icon={<i className="fa-sharp fa-regular fa-computer"/>} value="tbDevices" key={1}>
+                <Tabs.Tab
+                  icon={<i className="fa-sharp fa-regular fa-computer" />}
+                  value="tbDevices"
+                  key={1}
+                >
                   Machines
                 </Tabs.Tab>
-                <Tabs.Tab icon={<i className="fa-regular fa-users"/>} value="tbUsers" key={2}>
+                <Tabs.Tab
+                  icon={<i className="fa-regular fa-users" />}
+                  value="tbUsers"
+                  key={2}
+                >
                   Users
                 </Tabs.Tab>
-                <Tabs.Tab icon={<i className="fa-regular fa-lock-keyhole" />} value="tbACL" key={3}>
+                <Tabs.Tab
+                  icon={<i className="fa-regular fa-lock-keyhole" />}
+                  value="tbACL"
+                  key={3}
+                >
                   Access Controls
                 </Tabs.Tab>
-                <Tabs.Tab icon={<i className="fa-solid fa-screwdriver-wrench"/>} value="tbSettings" key={4}>
+                <Tabs.Tab
+                  icon={<i className="fa-solid fa-screwdriver-wrench" />}
+                  value="tbSettings"
+                  key={4}
+                >
                   Settings
                 </Tabs.Tab>
               </Tabs.List>
@@ -118,11 +136,11 @@ const MainPage = () => {
           </Container>
         </div>
       }
-      footer={
-        <div className={classes.footer}></div>
-      }
+      footer={<div className={classes.footer}></div>}
     >
-      Your application goes here
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+      </Routes>
     </AppShell>
   );
 };
