@@ -59,7 +59,13 @@ const useStyles = createStyles((theme) => ({
           ? theme.colors.dark[7]
           : theme.colors.gray[2]
     }
-  }
+  },
+  footer: {
+    marginTop: 120,
+    borderTop: `1px solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+    }`,
+  },
 }));
 
 const MainPage = () => {
@@ -111,6 +117,9 @@ const MainPage = () => {
             </Tabs>
           </Container>
         </div>
+      }
+      footer={
+        <div className={classes.footer}></div>
       }
     >
       Your application goes here
