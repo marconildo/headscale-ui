@@ -101,16 +101,16 @@ const MainPage = () => {
               }}
             >
               <Tabs.List>
-                <Tabs.Tab icon value="tbDevices" key={1}>
-                  Devices
+                <Tabs.Tab icon={<i className="fa-sharp fa-regular fa-computer"/>} value="tbDevices" key={1}>
+                  Machines
                 </Tabs.Tab>
-                <Tabs.Tab value="tbUsers" key={2}>
+                <Tabs.Tab icon={<i className="fa-regular fa-users"/>} value="tbUsers" key={2}>
                   Users
                 </Tabs.Tab>
-                <Tabs.Tab value="tbACL" key={3}>
-                  ACLs
+                <Tabs.Tab icon={<i className="fa-regular fa-lock-keyhole" />} value="tbACL" key={3}>
+                  Access Controls
                 </Tabs.Tab>
-                <Tabs.Tab value="tbSettings" key={4}>
+                <Tabs.Tab icon={<i className="fa-solid fa-screwdriver-wrench"/>} value="tbSettings" key={4}>
                   Settings
                 </Tabs.Tab>
               </Tabs.List>
