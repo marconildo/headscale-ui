@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MainPage from "./pages/MainPage";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 
 const App = () => {
   const [colorScheme, setColorScheme] = useState<string>("light");
@@ -17,7 +18,9 @@ const App = () => {
         withNormalizeCSS
         theme={{ colorScheme }}
       >
-        <MainPage />
+        <NotificationsProvider>
+          <MainPage />
+        </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );

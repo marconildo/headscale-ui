@@ -11,7 +11,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import Logo from "../assets/images/headscale_dots.png";
 import DarkModeToggle from "../components/common/DarkModeToggle";
-import Login from "../components/login/Login";
+import Login from "../components/login/login";
 
 const useStyles = createStyles((theme) => ({
   header: {
