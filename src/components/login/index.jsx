@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import {
   TextInput,
@@ -13,23 +14,24 @@ import {
 import Logo from "../../assets/images/headscale.png";
 import { useForm, yupResolver } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
+import { getAPIKeys } from "../../api/KeysApi";
 import * as Yup from "yup";
 import "./login.scss";
 
 const schema = Yup.object().shape({
-  urlServer: Yup.string()
-    .required("This field is required.")
-    .matches(
-      /^(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))$/,
-      {
-        message: "Headscale URL is not a valid url",
-        excludeEmptyString: true
-      }
-    ),
+  urlServer: Yup.string().required("This field is required."),
+  // .matches(
+  //   /^(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))$/,
+  //   {
+  //     message: "Headscale URL is not a valid url",
+  //     excludeEmptyString: true
+  //   }
+  // ),
   apiKey: Yup.string().required("This field is required.")
 });
 
 const Login = () => {
+  const navigate = useNavigate();
   const theme = useMantineTheme();
   const [visible, loading] = useDisclosure(false);
   const [opened, setOpened] = useState(true);
@@ -45,12 +47,9 @@ const Login = () => {
   const saveForm = (data) => {
     if (!form.isValid()) return;
 
-    // loading.toggle();
-
-    // setTimeout(() => {
-    //   loading.close();
-    //   setOpened(false);
-    // }, 3000);
+    localStorage.setItem("headscaleURL", form.values.urlServer);
+    localStorage.setItem("headscaleAPIKey", form.values.apiKey);
+    navigate("/");
   };
 
   const clearForm = () => {
@@ -62,18 +61,34 @@ const Login = () => {
     form.clearErrors();
     form.validate();
     if (!form.isValid()) return;
-    // loading.toggle();
-    // setTimeout(() => {
-    //   loading.close();
-    //   showNotification({
-    //     title: "Network error",
-    //     autoClose: 5000,
-    //     message: "Hey there, your code is awesome! 🤥",
-    //     color: 'red',
-    //     icon: <i class="fa-light fa-circle-exclamation" />,
-    //     disallowClose: true,
-    //   });
-    // }, 3000);
+    loading.toggle();
+
+    localStorage.setItem("headscaleURL", form.values.urlServer);
+    localStorage.setItem("headscaleAPIKey", form.values.apiKey);
+
+    getAPIKeys()
+      .then((result) => {
+        showNotification({
+          title: "Test successfully",
+          autoClose: 5000,
+          message:
+            "It was possible to establish a connection with the headscale with the informed settings.",
+          color: "green",
+          disallowClose: true
+        });
+      })
+      .catch((error) => {
+        showNotification({
+          title: "",
+          autoClose: 5000,
+          message: `${error.error.statusText}: $${error.message}`,
+          color: "red",
+          disallowClose: true
+        });
+      })
+      .finally(() => {
+        loading.close();
+      });
   };
 
   return (
@@ -85,11 +100,7 @@ const Login = () => {
       size="lg"
       overlayBlur={3}
       overlayOpacity={0.55}
-      overlayColor={
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[9]
-          : theme.colors.gray[2]
-      }
+      overlayColor={theme.colorScheme === "dark" ? theme.colors.dark[9] : theme.colors.gray[2]}
       centered
     >
       <Box>

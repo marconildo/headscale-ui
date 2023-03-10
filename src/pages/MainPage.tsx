@@ -11,7 +11,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import Logo from "../assets/images/headscale_dots.png";
 import DarkModeToggle from "../components/common/DarkModeToggle";
-import Login from "../components/login/login";
+import Navigation from "../routes";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -94,7 +94,6 @@ const MainPage = () => {
           </Container>
           <Container>
             <Tabs
-              defaultValue="tbDevices"
               variant="outline"
               classNames={{
                 root: classes.tabs,
@@ -138,9 +137,7 @@ const MainPage = () => {
       }
       footer={<div className={classes.footer}></div>}
     >
-      <Routes>
-        <Route path="/" element={<Login />}></Route>
-      </Routes>
+      <Navigation />
     </AppShell>
   );
 };
