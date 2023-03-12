@@ -8,6 +8,7 @@ export class Machine {
   public validTags: string[] = []
   public invalidTags: string[] = []
   public user: { name: string } = { name: '' }
+  public online: boolean = false
 
   public constructor(init?: Partial<Machine>) {
     Object.assign(this, init);

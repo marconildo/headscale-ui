@@ -10,6 +10,7 @@ const Navigation = () => {
     <Routes>
       <Route path="/" element={<HasSettings />}>
         <Route path="/" element={<Machines />} />
+        <Route path="/machines" element={<Machines />} />
       </Route>
       <Route path="/login" element={<Login />}></Route>
     </Routes>

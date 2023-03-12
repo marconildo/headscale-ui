@@ -3,7 +3,7 @@
 
 MKJPTo0OlQ.ethvK95MkMmn510mLN1Il55n6CWGLc7Hq9jUIoTwq2M
 
-
+npm i local-cors-proxy
 
 lcp --proxyUrl http://*.*.*.*:*
 

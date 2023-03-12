@@ -5,9 +5,10 @@ import {
   Tabs,
   Burger,
   createStyles,
-  Container
+  Container,
+  Center
 } from "@mantine/core";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import Logo from "../assets/images/headscale_dots.png";
 import DarkModeToggle from "../components/common/DarkModeToggle";
@@ -71,8 +72,34 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const MainPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [opened, { toggle, close }] = useDisclosure(false);
   const { classes, theme, cx } = useStyles();
+
+  const getCurrentTab = () => {
+    let tab = "";
+    switch (location.pathname) {
+      case "/":
+      case "/machines":
+        tab = "tbMachines";
+        break;
+      case "/users":
+        tab = "tbUsers";
+        break;
+      case "/acl":
+        tab = "tbACL";
+        break;
+      case "/settings":
+        tab = "tbSettings";
+        break;
+    }
+    return tab;
+  };
+
+  const changeTab = (path: string) => {
+    navigate(`/${path}`);
+  };
 
   return (
     <AppShell
@@ -94,6 +121,7 @@ const MainPage = () => {
           </Container>
           <Container>
             <Tabs
+              defaultValue={getCurrentTab()}
               variant="outline"
               classNames={{
                 root: classes.tabs,
@@ -104,8 +132,9 @@ const MainPage = () => {
               <Tabs.List>
                 <Tabs.Tab
                   icon={<i className="fa-sharp fa-regular fa-computer" />}
-                  value="tbDevices"
+                  value="tbMachines"
                   key={1}
+                  onClick={() => changeTab("machines")}
                 >
                   Machines
                 </Tabs.Tab>
@@ -113,6 +142,7 @@ const MainPage = () => {
                   icon={<i className="fa-regular fa-users" />}
                   value="tbUsers"
                   key={2}
+                  onClick={() => changeTab("users")}
                 >
                   Users
                 </Tabs.Tab>
@@ -120,6 +150,7 @@ const MainPage = () => {
                   icon={<i className="fa-regular fa-lock-keyhole" />}
                   value="tbACL"
                   key={3}
+                  onClick={() => changeTab("acl")}
                 >
                   Access Controls
                 </Tabs.Tab>
@@ -127,6 +158,7 @@ const MainPage = () => {
                   icon={<i className="fa-solid fa-screwdriver-wrench" />}
                   value="tbSettings"
                   key={4}
+                  onClick={() => changeTab("settings")}
                 >
                   Settings
                 </Tabs.Tab>
@@ -135,7 +167,7 @@ const MainPage = () => {
           </Container>
         </div>
       }
-      footer={<div className={classes.footer}></div>}
+      footer={<div className={classes.footer}><Center mt="md">Headscale UI</Center></div>}
     >
       <Navigation />
     </AppShell>
