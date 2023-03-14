@@ -141,15 +141,28 @@ const MainPage = () => {
                 <Tabs.Tab
                   icon={<i className="fa-regular fa-users" />}
                   value="tbUsers"
-                  key={2}
+                  key={3}
                   onClick={() => changeTab("users")}
                 >
                   Users
                 </Tabs.Tab>
                 <Tabs.Tab
+                  icon={<i className="fa-regular fa-binary-lock"></i>}
+                  value="tbPreAuthKey"
+                >
+                  Pre Auth Key
+                </Tabs.Tab>
+                <Tabs.Tab
+                  icon={<i className="fa-regular fa-key" />}
+                  value="tbApikey"
+                  key={4}
+                >
+                  Api key
+                </Tabs.Tab>
+                <Tabs.Tab
                   icon={<i className="fa-regular fa-lock-keyhole" />}
                   value="tbACL"
-                  key={3}
+                  key={4}
                   onClick={() => changeTab("acl")}
                 >
                   Access Controls
@@ -157,7 +170,7 @@ const MainPage = () => {
                 <Tabs.Tab
                   icon={<i className="fa-solid fa-screwdriver-wrench" />}
                   value="tbSettings"
-                  key={4}
+                  key={5}
                   onClick={() => changeTab("settings")}
                 >
                   Settings
@@ -167,7 +180,11 @@ const MainPage = () => {
           </Container>
         </div>
       }
-      footer={<div className={classes.footer}><Center mt="md">Headscale UI</Center></div>}
+      footer={
+        <div className={classes.footer}>
+          <Center mt="md">Headscale UI</Center>
+        </div>
+      }
     >
       <Navigation />
     </AppShell>
