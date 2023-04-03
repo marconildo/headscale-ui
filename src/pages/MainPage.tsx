@@ -87,6 +87,9 @@ const MainPage = () => {
       case "/users":
         tab = "tbUsers";
         break;
+      case "/preauthkey":
+        tab = "tbPreAuthKey";
+        break;
       case "/acl":
         tab = "tbACL";
         break;
@@ -149,8 +152,9 @@ const MainPage = () => {
                 <Tabs.Tab
                   icon={<i className="fa-regular fa-binary-lock"></i>}
                   value="tbPreAuthKey"
+                  onClick={() => changeTab("preauthkey")}
                 >
-                  Pre Auth Key
+                  Pre Authkey
                 </Tabs.Tab>
                 <Tabs.Tab
                   icon={<i className="fa-regular fa-key" />}
@@ -162,7 +166,7 @@ const MainPage = () => {
                 <Tabs.Tab
                   icon={<i className="fa-regular fa-lock-keyhole" />}
                   value="tbACL"
-                  key={4}
+                  key={5}
                   onClick={() => changeTab("acl")}
                 >
                   Access Controls
@@ -170,7 +174,7 @@ const MainPage = () => {
                 <Tabs.Tab
                   icon={<i className="fa-solid fa-screwdriver-wrench" />}
                   value="tbSettings"
-                  key={5}
+                  key={6}
                   onClick={() => changeTab("settings")}
                 >
                   Settings

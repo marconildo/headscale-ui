@@ -1,8 +1,9 @@
+.login {
+  .mantine-Modal-close {
+    display: none;
+  }
 
-.mantine-Modal-close {
-  display: none;
-}
-
-.mantine-Modal-header {
-  justify-content: center;
+  .mantine-Modal-header {
+    justify-content: center;
+  }
 }

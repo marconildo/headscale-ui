@@ -93,6 +93,7 @@ const Login = () => {
 
   return (
     <Modal
+      className="login"
       opened={opened}
       title={<img width={200} src={Logo} />}
       closeOnClickOutside={false}
