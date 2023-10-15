@@ -21,7 +21,6 @@ const Machines = () => {
   useEffect(() => {
     getMachines()
       .then((result) => {
-        console.log(result);
         setData(result);
         setPage(1);
       })

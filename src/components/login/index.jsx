@@ -81,7 +81,7 @@ const Login = () => {
         showNotification({
           title: "",
           autoClose: 5000,
-          message: `${error.error.statusText}: $${error.message}`,
+          message: `${error.error ? error.error.statusText : error.statusText}: ${error.message}`,
           color: "red",
           disallowClose: true
         });

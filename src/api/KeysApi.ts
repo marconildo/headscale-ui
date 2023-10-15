@@ -19,7 +19,6 @@ const getAPIKeys = async (): Promise<APIKey[]> => {
       if (response.ok) {
         apiKeysResponse = response;
       } else {
-        console.log(response);
         return response.text().then((text) => {
           if (typeof text === "object") throw JSON.parse(text).message;
           else

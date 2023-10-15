@@ -13,12 +13,13 @@ import {
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm, yupResolver } from "@mantine/form";
+import * as Yup from "yup";
 
 const schema = Yup.object().shape({
   user: Yup.string().required("This field is required.")
 });
 
-const NewPreAuthKey = ({ opened, users }) => {
+const NewPreAuthKey = ({ opened, onHandleClose, users }) => {
   const [tags, setTags] = useState([]);
   const [visible, loading] = useDisclosure(false);
   const theme = useMantineTheme();
@@ -30,7 +31,9 @@ const NewPreAuthKey = ({ opened, users }) => {
     validate: yupResolver(schema)
   });
 
-  const cancel = () => {};
+  const cancel = () => {
+    onHandleClose();
+  };
 
   const saveForm = (data) => {};
 
@@ -61,13 +64,7 @@ const NewPreAuthKey = ({ opened, users }) => {
               <Switch value="ephemeral" label="Ephemeral" />
             </Group>
           </Switch.Group>
-          <DatePicker
-            placeholder="Choose an expiration date"
-            minDate={new Date()}
-            label="Expiration"
-            mt="md"
-            {...form.getInputProps("expiration")}
-          />
+          
           <MultiSelect
             searchable
             placeholder="Insert ACL tags"

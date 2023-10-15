@@ -2,6 +2,7 @@ import { useState } from "react";
 import MainPage from "./pages/MainPage";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
+import { ModalsProvider } from "@mantine/modals";
 
 const App = () => {
   const [colorScheme, setColorScheme] = useState<string>("light");
@@ -19,7 +20,9 @@ const App = () => {
         theme={{ colorScheme }}
       >
         <NotificationsProvider>
-          <MainPage />
+          <ModalsProvider>
+            <MainPage />
+          </ModalsProvider>
         </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>

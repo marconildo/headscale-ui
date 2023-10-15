@@ -11,4 +11,6 @@ http://localhost:8010/proxy
 
 /api/v1/apikey
 
-D0gxF4Y-QA.A4Q5P8B7_8ejiRZa22KwwE12PU8U11BtEcKt4-Uy2LE
+u: D0gxF4Y-QA.A4Q5P8B7_8ejiRZa22KwwE12PU8U11BtEcKt4-Uy2LE
+
+v: UvlU2zJc5A.sq_bLRL12b2c9-0HaUZysvL4Cy-9DWstP9MfkEpIFpM

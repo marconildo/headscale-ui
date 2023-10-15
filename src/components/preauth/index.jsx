@@ -2,7 +2,19 @@ import { useEffect, useState } from "react";
 import { getUsers } from "../../api/UsersApi";
 import { getPreauthKeys } from "../../api/PreAuthKeyApi";
 import { DataTable } from "mantine-datatable";
-import { Title, Badge, Container, Grid, Checkbox, Select, Button } from "@mantine/core";
+import {
+  Title,
+  Badge,
+  Container,
+  Grid,
+  Checkbox,
+  Select,
+  Button,
+  Menu,
+  Group,
+  ActionIcon,
+  Tooltip
+} from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import NewPreauthkey from "./newPreauthkey";
 import dayjs from "dayjs";
@@ -13,7 +25,7 @@ const PreAuthKey = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
   const [data, setData] = useState([]);
-  const [opened, setOpened] = useState(true);
+  const [opened, setOpened] = useState(false);
   const [page, setPage] = useState(0);
   const [query, setQuery] = useState("");
   const [fetching, setFetching] = useState(true);
@@ -41,6 +53,7 @@ const PreAuthKey = () => {
   useEffect(() => {
     getPreauthKeys(user?.name ?? user?.value)
       .then((result) => {
+        console.log(result);
         setData(result);
         setPage(1);
       })
@@ -51,6 +64,7 @@ const PreAuthKey = () => {
   useEffect(() => {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE;
+
     const dataFilter = data.filter(({ name, expiration }) => {
       if (available && new Date(expiration) < new Date()) return false;
       if (
@@ -67,6 +81,13 @@ const PreAuthKey = () => {
     setRecords(dataFilter.slice(from, to));
   }, [data, page, debouncedQuery, available]);
 
+  const closeModal = () => {
+    setOpened(false);
+  };
+
+  const openModal = () => {
+    setOpened(true);
+  };
   return (
     <Container size="xl">
       <Title order={2}>Pre Authkey</Title>
@@ -97,9 +118,9 @@ const PreAuthKey = () => {
         <Grid.Col
           xs={4}
           sm={5}
-          style={{ paddingTop: "33px", display: "flex", justifycontent: "right" }}
+          style={{ paddingTop: "33px", display: "flex", justifyContent: "end" }}
         >
-          <Button>New Pre Authkey</Button>
+          <Button onClick={openModal}>New Pre Authkey</Button>
         </Grid.Col>
       </Grid>
       <DataTable
@@ -161,11 +182,11 @@ const PreAuthKey = () => {
             textAlignment: "center",
             render: ({ used }) =>
               used ? (
-                <Badge radius="sm" variant="dot">
+                <Badge color="gray" radius="sm" variant="dot">
                   Yes
                 </Badge>
               ) : (
-                <Badge color="yellow" radius="sm" variant="dot">
+                <Badge color="teal" radius="sm" variant="dot">
                   No
                 </Badge>
               )
@@ -194,10 +215,27 @@ const PreAuthKey = () => {
             accessor: "expiration",
             sortable: true,
             render: ({ expiration }) => dayjs(expiration).format("DD/MM/YYYY HH:mm:ss")
+          },
+          {
+            accessor: "actions",
+            title: "",
+            render: ({ expiration }) => (
+              <Group noWrap>
+                <Tooltip withArrow label="Expire">
+                  <ActionIcon
+                    disabled={new Date(expiration) < new Date()}
+                    color="blue"
+                    variant="transparent"
+                  >
+                    <i className="fa-duotone fa-hourglass-end" />
+                  </ActionIcon>
+                </Tooltip>
+              </Group>
+            )
           }
         ]}
       />
-      {opened && <NewPreauthkey opened users={users} />}
+      {opened && <NewPreauthkey opened onHandleClose={closeModal} users={users} />}
     </Container>
   );
 };
